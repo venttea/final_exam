@@ -4,26 +4,31 @@ from django.contrib.auth.models import User
 
 # Единицы измерения
 class UnitMes(models.Model):
+    id_unit_mes = models.IntegerField(primary_key=True)
     name = models.CharField()
 
 
 # Поставщики
 class Providers(models.Model):
+    id_provider = models.IntegerField(primary_key=True)
     name = models.CharField()
 
 
 # Производители
 class Producers(models.Model):
+    id_producer = models.IntegerField(primary_key=True)
     name = models.CharField()
 
 
 # Категории продуктов
 class CategoryProduct(models.Model):
+    id_category = models.IntegerField(primary_key=True)
     name = models.CharField()
 
 
 # Пункты выдачи
 class PointPlace(models.Model):
+    id_PVZ = models.IntegerField(primary_key=True)
     index = models.IntegerField()
     city = models.CharField(max_length=100)
     street = models.CharField(max_length=100)
@@ -32,11 +37,13 @@ class PointPlace(models.Model):
 
 # Статусы заказов
 class StatusOrder(models.Model):
+    id_status = models.IntegerField(primary_key=True)
     name = models.CharField()
 
 
 # Данные заказа
 class DataOrder(models.Model):
+    id_data = models.IntegerField(primary_key=True)
     date_order = models.DateField()
     date_delivery = models.DateField()
     id_PVZ = models.ForeignKey(PointPlace, on_delete=models.CASCADE)
@@ -47,6 +54,7 @@ class DataOrder(models.Model):
 
 # Товары
 class Products(models.Model):
+    id_product = models.IntegerField(primary_key=True)
     article = models.CharField()
     name = models.CharField()
     id_unit_mes = models.ForeignKey(UnitMes, on_delete=models.CASCADE)
@@ -62,6 +70,7 @@ class Products(models.Model):
 
 # Заказ
 class Order(models.Model):
+    id_order = models.IntegerField(primary_key=True)
     id_data = models.ForeignKey(DataOrder, on_delete=models.CASCADE)
     id_product = models.ForeignKey(Products, on_delete=models.CASCADE)
     quantity = models.IntegerField()
