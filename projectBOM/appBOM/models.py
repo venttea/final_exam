@@ -7,22 +7,22 @@ class UnitMes(models.Model):
     name = models.CharField()
 
 
-# Поставщик
-class Provider(models.Model):
+# Поставщики
+class Providers(models.Model):
     name = models.CharField()
 
 
-# Производитель
-class Producer(models.Model):
+# Производители
+class Producers(models.Model):
     name = models.CharField()
 
 
-# Категория продукта
+# Категории продуктов
 class CategoryProduct(models.Model):
     name = models.CharField()
 
 
-# Пункт выдачи
+# Пункты выдачи
 class PointPlace(models.Model):
     index = models.IntegerField()
     city = models.CharField(max_length=100)
@@ -30,39 +30,39 @@ class PointPlace(models.Model):
     number = models.IntegerField()
 
 
-# Статусы заказа
+# Статусы заказов
 class StatusOrder(models.Model):
     name = models.CharField()
 
 
-# Заказ
-class Order(models.Model):
+# Данные заказа
+class DataOrder(models.Model):
     date_order = models.DateField()
     date_delivery = models.DateField()
-    point_place = models.ForeignKey(PointPlace, on_delete=models.CASCADE)
-    code_order = models.IntegerField()
-    status_order = models.ForeignKey(StatusOrder, on_delete=models.CASCADE)
-    client_order = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_PVZ = models.ForeignKey(PointPlace, on_delete=models.CASCADE)
+    code = models.IntegerField()
+    id_status = models.ForeignKey(StatusOrder, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 # Товары
-class Product(models.Model):
-    artickle = models.CharField()
+class Products(models.Model):
+    article = models.CharField()
     name = models.CharField()
-    unit_mes = models.ForeignKey(UnitMes, on_delete=models.CASCADE)
+    id_unit_mes = models.ForeignKey(UnitMes, on_delete=models.CASCADE)
     price = models.IntegerField()
-    provider = models.ForeignKey(Provider, on_delete=models.CASCADE)
-    producer = models.ForeignKey(Producer, on_delete=models.CASCADE)
-    category = models.ForeignKey(CategoryProduct, on_delete=models.CASCADE)
+    id_provider = models.ForeignKey(Providers, on_delete=models.CASCADE)
+    id_producer = models.ForeignKey(Producers, on_delete=models.CASCADE)
+    id_category = models.ForeignKey(CategoryProduct, on_delete=models.CASCADE)
     discount = models.IntegerField()
-    count_store = models.IntegerField()
+    quantity = models.IntegerField()
     description = models.TextField()
-    photo_name = models.CharField()
+    photo = models.CharField()
 
 
-# Товар в заказе
-class ProductOrder(models.Model):
-    order_id = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    count_product = models.IntegerField()
+# Заказ
+class Order(models.Model):
+    id_data = models.ForeignKey(DataOrder, on_delete=models.CASCADE)
+    id_product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
 
