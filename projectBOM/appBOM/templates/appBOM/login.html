@@ -1,0 +1,38 @@
+<!-- СТРАНИЦА АВТОРИЗАЦИИ -->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход в систему</title>
+    <link rel="stylesheet" href="{% static 'appBOM/css/style.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-form">
+            <h2 class="login-title">Вход в систему ₊˚⊹♡</h2>
+
+            <!-- Форма для авторизации -->
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- Строка ввода логина -->
+                <div class="form-group">
+                    <label>Логин:</label>
+                    <input type="text" name="username" required>
+                </div>
+
+                <!-- Строка ввода пароля -->
+                <div class="form-group">
+                    <label>Пароль:</label>
+                    <input type="password" name="password" required>
+                </div>
+
+                <!-- Кнопка "Войти" -->
+                <button type="submit" class="login-btn">Войти</button>
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>
