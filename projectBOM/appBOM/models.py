@@ -49,7 +49,7 @@ class DataOrder(models.Model):
     id_PVZ = models.ForeignKey(PointPlace, on_delete=models.CASCADE)
     code = models.IntegerField()
     id_status = models.ForeignKey(StatusOrder, on_delete=models.CASCADE)
-    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
 
 # Товары
@@ -75,3 +75,16 @@ class Order(models.Model):
     id_product = models.ForeignKey(Products, on_delete=models.CASCADE)
     quantity = models.IntegerField()
 
+
+# Роли
+class UserRole(models.Model):
+    id = models.AutoField(primary_key=True)
+    role_choices = (('admin', 'Администратор'), ('manager', 'Менеджер'), ('client', 'Клиент'))
+    name = models.CharField(max_length=20, choices=role_choices, unique=True)
+
+
+# Соединение пользователя с ролью
+class Profile(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.ForeignKey(UserRole, on_delete=models.SET_NULL, null=True, blank=True)
