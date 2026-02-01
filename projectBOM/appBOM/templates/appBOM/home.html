@@ -1,0 +1,35 @@
+<!-- СТРАНИЦА С ОСНОВНОЙ НАВИГАЦИЕЙ -->
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Главная страница</title>
+    <link rel="stylesheet" href="{% static 'appBOM/css/style.css' %}">
+</head>
+<body>
+
+    <!-- Шапка -->
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">Обувь</div>
+            <div class="nav">
+                <a href="{% url 'logout' %}">Выйти</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Контейнер для кнопок навигации -->
+    <div class="container">
+        <div class="welcome-section">
+            <h1 class="welcome-title">Добро пожаловать!</h1>
+            <p class="welcome-text">Вы успешно вошли в профиль <(˶ᵔᵕᵔ˶)></p>
+        </div>
+    </div>
+    <!-- Подвал -->
+    <footer class="site-footer">
+        <p>© 2026 | ООО "Обувь" | Все права защищены</p>
+    </footer>
+
+</body>
+</html>
