@@ -1,6 +1,8 @@
+
 <!-- СТРАНИЦА С ОСНОВНОЙ НАВИГАЦИЕЙ -->
 
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +14,12 @@
     <!-- Шапка -->
     <div class="header">
         <div class="header-content">
-            <div class="logo">Обувь</div>
+                <div class="logo">
+                    <img src="{% static 'appBOM/images/icon.png' %}" alt="Обувь" class="logo-img">
+                    <span>Обувь</span>
+                </div>
             <div class="nav">
+                <p>{{ full_name }}</p>
                 <a href="{% url 'logout' %}">Выйти</a>
             </div>
         </div>
@@ -22,13 +28,39 @@
     <!-- Контейнер для кнопок навигации -->
     <div class="container">
         <div class="welcome-section">
-            <h1 class="welcome-title">Добро пожаловать!</h1>
-            <p class="welcome-text">Вы успешно вошли в профиль <(˶ᵔᵕᵔ˶)></p>
+            <h2>Добро пожаловать, {{ full_name }}!</h2>
+            <p>Роль учетной записи: <strong>
+                {% if role == 'admin' %}
+                    Администратор
+                {% elif role == 'manager' %}
+                    Менеджер
+                {% elif role == 'client' %}
+                    Клиент
+                {% endif %}
+            </strong></p>
+            <div class="action-buttons">
+
+                <!-- Кнопки для администратора -->
+                {% if role == 'admin' %}
+                    <a href="{% url 'product_list' %}" class="action-btn">Товары</a>
+                    <a href="{% url 'order_list' %}" class="action-btn">Заказы</a>
+
+                <!-- Кнопки для менеджера -->
+                {% elif role == 'manager' %}
+                    <a href="{% url 'product_list' %}" class="action-btn">Товары</a>
+                    <a href="{% url 'order_list' %}" class="action-btn">Заказы</a>
+
+                <!-- Кнопки для клиента -->
+                {% else %}
+                    <a href="{% url 'product_list' %}" class="action-btn">Товары</a>
+                {% endif %}
+            </div>
         </div>
     </div>
+
     <!-- Подвал -->
     <footer class="site-footer">
-        <p>© 2026 | ООО "Обувь" | Все права защищены</p>
+        <p>© 2026 | ООО "Обувь" | Все права защищены | ☆*:.｡.o(≧▽≦)o.｡.:*☆</p>
     </footer>
 
 </body>

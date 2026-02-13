@@ -4,13 +4,11 @@ from appBOM import views
 
 urlpatterns = [
 
-    # Админка
+    # Панель администратора
     path('admin/', admin.site.urls),
 
     # Вход в систему
     path('', views.login_view, name='login'),
-
-    # Вход в систему
     path('login/', views.login_view, name='login'),
 
     # Выход из системы
@@ -18,4 +16,10 @@ urlpatterns = [
 
     # Главная страница (после авторизации)
     path('home/', views.home, name='home'),
+
+    # Список товаров доступный всем
+    path('products/', views.view_products, name='product_list'),
+
+    # Список заказов для администраторов и менеджеров
+    path('orders/', views.view_orders, name='order_list'),
 ]

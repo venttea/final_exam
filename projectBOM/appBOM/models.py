@@ -62,10 +62,24 @@ class Products(models.Model):
     id_provider = models.ForeignKey(Providers, on_delete=models.CASCADE)
     id_producer = models.ForeignKey(Producers, on_delete=models.CASCADE)
     id_category = models.ForeignKey(CategoryProduct, on_delete=models.CASCADE)
-    discount = models.IntegerField()
+    discount = models.IntegerField(default=0)
     quantity = models.IntegerField()
     description = models.TextField()
     photo = models.CharField()
+
+    def get_discounted_price(self):
+        """Возвращает цену со скидкой"""
+        if self.discount > 0:
+            discounted = self.price * (100 - self.discount) / 100
+            return round(discounted, 2)
+        return self.price
+
+    def get_saving(self):
+        """Возвращает сумму экономии"""
+        if self.discount > 0:
+            saving = self.price * self.discount / 100
+            return round(saving, 2)
+        return 0
 
 
 # Заказ

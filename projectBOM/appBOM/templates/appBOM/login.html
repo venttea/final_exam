@@ -1,3 +1,4 @@
+
 <!-- СТРАНИЦА АВТОРИЗАЦИИ -->
 
 {% load static %}
@@ -10,7 +11,7 @@
 <body>
     <div class="login-container">
         <div class="login-form">
-            <h2 class="login-title">Вход в систему ₊˚⊹♡</h2>
+            <h2 class="login-title">Вход в систему</h2>
 
             <!-- Форма для авторизации -->
             <form method="post">
@@ -32,6 +33,10 @@
                 <button type="submit" class="login-btn">Войти</button>
             </form>
 
+            <!-- Кнопка, чтобы посмотреть услуги в качестве гостя -->
+            <div class="guest-link">
+                <a href="{% url 'product_list' %}">Посмотреть товары как гость</a>
+            </div>
         </div>
     </div>
 </body>
