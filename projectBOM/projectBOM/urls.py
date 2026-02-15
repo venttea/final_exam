@@ -8,8 +8,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Вход в систему
-    path('', views.login_view, name='login'),
     path('login/', views.login_view, name='login'),
+    path('', views.login_view, name='login'),
 
     # Выход из системы
     path('logout/', views.logout_view, name='logout'),

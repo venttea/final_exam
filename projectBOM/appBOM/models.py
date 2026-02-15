@@ -34,6 +34,9 @@ class PointPlace(models.Model):
     street = models.CharField(max_length=100)
     number = models.IntegerField()
 
+    def full_address(self):
+        return f"{self.index}, {self.city}, {self.street}, {self.number}"
+
 
 # Статусы заказов
 class StatusOrder(models.Model):

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -40,21 +40,28 @@ def logout_view(request):
 # Проверка роли: Администратор
 def is_administrator(user):
     profile = Profile.objects.get(user=user)
-    return profile.role.name == 'Администратор'
+    return profile.role.name == 'admin'
 
 
 
 # Проверка роли: Менеджер
 def is_manager(user):
     profile = Profile.objects.get(user=user)
-    return profile.role.name == 'Менеджер'
+    return profile.role.name == 'manager'
 
 
 
 # Проверка роли: Клиент
 def is_client(user):
     profile = Profile.objects.get(user=user)
-    return profile.role.name == 'Клиент'
+    return profile.role.name == 'client'
+
+
+
+# Проверка роли: Администратор ИЛИ Менеджер
+def administrator_or_manager(user):
+    profile = Profile.objects.get(user=user)
+    return profile.role.name in ['admin', 'manager']
 
 
 
@@ -93,7 +100,11 @@ def view_products(request):
 
 # Страница "Заказы"
 @login_required
-@user_passes_test(is_administrator or is_manager)
+@user_passes_test(administrator_or_manager)
 def view_orders(request):
-    orders = DataOrder.objects.all()
-    return render(request, 'appBOM/orders.html', {'orders': orders})
+    orders = Order.objects.all().select_related('id_data', 'id_product')
+
+    # Получение полного имени пользователя
+    full_name = request.user.get_full_name()
+
+    return render(request, 'appBOM/order_list.html', {'orders': orders, 'full_name': full_name})
